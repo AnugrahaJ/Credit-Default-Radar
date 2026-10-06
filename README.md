@@ -41,7 +41,6 @@ Lending errors are not equal. Approving an applicant who defaults loses the prin
 | 165 exact duplicate rows | Dropped | Repeated records would overweight those applicants |
 | Unrealistic ages | Kept age ≤ 95 | Removes impossible values (e.g. 144) while keeping plausible older applicants |
 | Unrealistic employment length | Kept ≤ 50 years | Longer careers than this are not credible |
-| Extreme incomes (up to ~$2M) | Kept | Rare but plausible; not errors |
 | Missing employment length (887 rows) | Filled with median (4 years) **and** added an `emp_missing` flag | Missingness was informative: these applicants defaulted more (32% vs 22%) |
 | Missing interest rate (3,094 rows) | Filled with the median rate **within each loan grade** | Missingness was not informative, and rates are set by grade |
 
@@ -86,7 +85,7 @@ Every signal catches part of the risk and misses the rest. Burden is strongest b
 
 ---
 
-## 3. Feature Engineering & Modelling (next)
+## 3. Feature Engineering & Modelling
 - Finance-style features, encoding, and a stratified train/test split
 - Imputation medians recomputed on **training data only** (cleaning used the full data, a minor leakage to fix here)
 - **Leakage test:** `loan_grade` and `loan_int_rate` encode the lender's own risk judgement, so models will be trained with and without them
